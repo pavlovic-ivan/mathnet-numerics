@@ -18,8 +18,7 @@ jobs:
 
             -   name: Add Intel oneAPI APT repo
                 run: |
-                    wget -qO- https://apt.repos.intel.com/oneapi/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/oneapi-archive-keyring.gpg
-                    echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+                    echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
                     sudo apt update
                     sudo apt install intel-oneapi-mkl
 
