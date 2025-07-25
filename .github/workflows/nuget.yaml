@@ -17,7 +17,7 @@ jobs:
 #                  dotnet-version: 8.0.x
 
             - name: Install required packages
-              run: apt install g++ g++-multilib libc6-dev-i386
+              run: sudo apt-get install g++ g++-multilib libc6-dev-i386
 
             - name: Build NuGet package
               run: ./src/NativeProviders/Linux/mkl_build.sh
