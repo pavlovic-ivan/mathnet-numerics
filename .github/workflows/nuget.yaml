@@ -1,0 +1,64 @@
+name: CI
+
+on:
+    workflow_dispatch:
+
+jobs:
+    build-nuget:
+        name: Build NuGet package
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+#            - name: Setup .NET SDK v8.0.x
+#              uses: actions/setup-dotnet@v4
+#              with:
+#                  dotnet-version: 8.0.x
+
+            - name: Install required packages
+              run: apt-get install g++ g++-multilib libc6-dev-i386
+
+            - name: Build NuGet package
+              run: ./src/NativeProviders/Linux/mkl_build.sh
+
+#    publish-release:
+#        name: Publish nuget package to NuGet
+#        runs-on: ubuntu-latest
+#        permissions:
+#            contents: write
+#        steps:
+#            - name: Checkout
+#              uses: actions/checkout@v4
+#            - name: Check version
+#              id: check-version
+#              shell: pwsh
+#              run: |
+#                  $version = "${{ needs.build-nuget.outputs.version }}"
+#                  $tag = "${{ github.ref }}".SubString(10)
+#                  if (-not ($tag -eq $version)) {
+#                    echo "::error ::There is a mismatch between the project version ($version) and the tag ($tag)"
+#                    exit 1
+#                  }
+#            - name: Download NuGet artifact
+#              uses: actions/download-artifact@v4
+#              with:
+#                  name: nuget-package
+#                  path: nuget
+#            - name: Setup .NET SDK v8.0.x
+#              uses: actions/setup-dotnet@v4
+#              with:
+#                  dotnet-version: 8.0.x
+#
+#            - name: Create release
+#              uses: softprops/action-gh-release@v2
+#              with:
+#                  name: ParquetSharp ${{ needs.build-nuget.outputs.version }}
+#                  draft: true
+#                  prerelease: ${{ contains(needs.build-nuget.outputs.version, '-') }}
+#                  files: |
+#                      nuget/ParquetSharp.${{ needs.build-nuget.outputs.version }}.nupkg
+#              env:
+#                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#            - name: Publish to NuGet
+#              run: dotnet nuget push nuget/ParquetSharp.${{ needs.build-nuget.outputs.version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
