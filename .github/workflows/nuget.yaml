@@ -16,8 +16,14 @@ jobs:
 #              with:
 #                  dotnet-version: 8.0.x
 
+            -   name: Add Intel oneAPI APT repo
+                run: |
+                    wget -qO- https://apt.repos.intel.com/oneapi/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/oneapi-archive-keyring.gpg
+                    echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+                    sudo apt update
+
             - name: Install required packages
-              run: sudo apt-get install g++ g++-multilib libc6-dev-i386
+              run: sudo apt-get install -y g++ g++-multilib libc6-dev-i386 intel-oneapi-mkl-devel intel-oneapi-openmp-devel
 
             - name: Build NuGet package
               working-directory: src/NativeProviders/Linux
