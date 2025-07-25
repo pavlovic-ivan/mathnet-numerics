@@ -18,8 +18,8 @@ jobs:
 
             -   name: Add Intel oneAPI APT repo
                 run: |
-                    wget https://registrationcenter-download.intel.com/akdlm/IRC_NAS/47c7d946-fca1-441a-b0df-b094e3f045ea/intel-onemkl-2025.2.0.629.sh
-                    sudo sh ./intel-onemkl-2025.2.0.629.sh
+                    wget https://registrationcenter-download.intel.com/akdlm/IRC_NAS/47c7d946-fca1-441a-b0df-b094e3f045ea/intel-onemkl-2025.2.0.629_offline.sh
+                    sudo sh ./intel-onemkl-2025.2.0.629_offline.sh
 
             - name: Install required packages
               run: sudo apt-get install -y g++ g++-multilib libc6-dev-i386
