@@ -20,7 +20,9 @@ jobs:
               run: sudo apt-get install g++ g++-multilib libc6-dev-i386
 
             - name: Build NuGet package
-              run: ./src/NativeProviders/Linux/mkl_build.sh
+              run: |
+                  chmod +x  ./src/NativeProviders/Linux/mkl_build.sh
+                  ./src/NativeProviders/Linux/mkl_build.sh
 
 #    publish-release:
 #        name: Publish nuget package to NuGet
