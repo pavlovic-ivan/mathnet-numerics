@@ -28,6 +28,14 @@ jobs:
             - name: Install required packages
               run: sudo apt-get install -y g++ g++-multilib libc6-dev-i386
 
+            - name: Debug
+              run: |
+                  ls -la /opt
+                  ls -la /opt/intel
+                  ls -la /opt/intel/oneapi
+                  ls -la /opt/intel/oneapi/mkl/
+                  ls -la /opt/intel/oneapi/mkl/latest
+
 #            - name: Build NuGet package
 #              working-directory: src/NativeProviders/Linux
 #              run: |
