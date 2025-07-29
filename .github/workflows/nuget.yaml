@@ -35,7 +35,8 @@ jobs:
                   ls -la /opt/intel/oneapi
                   ls -la /opt/intel/oneapi/mkl/
                   echo "---- latest version ----"
-                  ls -la /opt/intel/oneapi/mkl/latest
+                  readlink /opt/intel/oneapi/mkl/latest
+
 
 #            - name: Build NuGet package
 #              working-directory: src/NativeProviders/Linux
