@@ -40,6 +40,10 @@ jobs:
                   chmod +x mkl_build.sh
                   ./mkl_build.sh
 
+            - name: Debug
+              run: |
+                  ls -la out
+
 #    publish-release:
 #        name: Publish nuget package to NuGet
 #        runs-on: ubuntu-latest
