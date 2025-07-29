@@ -36,6 +36,7 @@ jobs:
                   ls -la /opt/intel/oneapi/mkl/
                   echo "---- latest version ----"
                   readlink /opt/intel/oneapi/mkl/latest
+                  realpath /opt/intel/oneapi/mkl/latest
 
 
 #            - name: Build NuGet package
