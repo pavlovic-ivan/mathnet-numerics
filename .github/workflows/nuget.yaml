@@ -11,39 +11,34 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-#            - name: Setup .NET SDK v8.0.x
-#              uses: actions/setup-dotnet@v4
-#              with:
-#                  dotnet-version: 8.0.x
-
-            -   name: Add Intel oneAPI APT repo
-                run: |
-                    sudo apt-get update
-                    sudo apt-get install -y gpg-agent wget
-                    wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
-                    echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-                    sudo apt-get update
-                    sudo apt-get install intel-oneapi-mkl intel-oneapi-mkl-devel
+            - name: Add Intel oneAPI APT repo
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y gpg-agent wget
+                wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+                echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+                sudo apt-get update
+                sudo apt-get install intel-oneapi-mkl intel-oneapi-mkl-devel
 
             - name: Install required packages
               run: sudo apt-get install -y g++ g++-multilib libc6-dev-i386
 
-            - name: Debug
-              run: |
-                  ls -la /opt
-                  ls -la /opt/intel
-                  ls -la /opt/intel/oneapi
-                  ls -la /opt/intel/oneapi/mkl/
-                  echo "---- latest version ----"
-                  readlink /opt/intel/oneapi/mkl/latest
-                  realpath /opt/intel/oneapi/mkl/latest
-
-
-#            - name: Build NuGet package
-#              working-directory: src/NativeProviders/Linux
+#            - name: Debug
 #              run: |
-#                  chmod +x mkl_build.sh
-#                  ./mkl_build.sh
+#                  ls -la /opt
+#                  ls -la /opt/intel
+#                  ls -la /opt/intel/oneapi
+#                  ls -la /opt/intel/oneapi/mkl/
+#                  echo "---- latest version ----"
+#                  readlink /opt/intel/oneapi/mkl/latest
+#                  realpath /opt/intel/oneapi/mkl/latest
+
+
+            - name: Build NuGet package
+              working-directory: src/NativeProviders/Linux
+              run: |
+                  chmod +x mkl_build.sh
+                  ./mkl_build.sh
 
 #    publish-release:
 #        name: Publish nuget package to NuGet
