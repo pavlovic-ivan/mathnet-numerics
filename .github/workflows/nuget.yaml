@@ -25,22 +25,22 @@ jobs:
             - name: Install required packages
               run: sudo apt-get install -y g++ g++-multilib libc6-dev-i386
 
-            - name: Debug
-              run: |
-                ls -la /opt
-                ls -la /opt/intel
-                ls -la /opt/intel/oneapi
-                ls -la /opt/intel/oneapi/mkl/
-                echo "---- latest version ----"
-                readlink /opt/intel/oneapi/mkl/latest
-                realpath /opt/intel/oneapi/mkl/latest
-                echo ""
-                echo ""
-                echo ""
-                echo ""
-                ls -la /opt/intel/oneapi/compiler
-                ls -la /opt/intel/oneapi/compiler/2025.2
-                ls -la /opt/intel/oneapi/compiler/2025.2/lib
+#            - name: Debug
+#              run: |
+#                ls -la /opt
+#                ls -la /opt/intel
+#                ls -la /opt/intel/oneapi
+#                ls -la /opt/intel/oneapi/mkl/
+#                echo "---- latest version ----"
+#                readlink /opt/intel/oneapi/mkl/latest
+#                realpath /opt/intel/oneapi/mkl/latest
+#                echo ""
+#                echo ""
+#                echo ""
+#                echo ""
+#                ls -la /opt/intel/oneapi/compiler
+#                ls -la /opt/intel/oneapi/compiler/2025.2
+#                ls -la /opt/intel/oneapi/compiler/2025.2/lib
 
 
             - name: Build NuGet package
