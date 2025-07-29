@@ -18,12 +18,12 @@ jobs:
 
             -   name: Add Intel oneAPI APT repo
                 run: |
-                    sudo apt update
-                    sudo apt install -y gpg-agent wget
+                    sudo apt-get update
+                    sudo apt-get install -y gpg-agent wget
                     wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
                     echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
-                    sudo apt update
-                    sudo apt install intel-oneapi-mkl intel-oneapi-mkl-devel
+                    sudo apt-get update
+                    sudo apt-get install intel-oneapi-mkl intel-oneapi-mkl-devel
 
             - name: Install required packages
               run: sudo apt-get install -y g++ g++-multilib libc6-dev-i386
