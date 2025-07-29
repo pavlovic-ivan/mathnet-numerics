@@ -61,7 +61,7 @@ jobs:
 
             - name: Debug
               run: |
-                ls -la out
+                ls -la out/MKL/Linux/x64
 
 #    publish-release:
 #        name: Publish nuget package to NuGet
