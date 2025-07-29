@@ -49,6 +49,12 @@ jobs:
               run: |
                 ls -la out/MKL/Linux/x64
 
+            - name: Install Mono
+              run: |
+                sudo apt update
+                sudo apt install -y mono-runtime
+                mono --version
+
             - name: Create NuGet package
               run: |
                 ./build.sh MklLinuxPack
