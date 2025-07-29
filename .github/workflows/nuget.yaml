@@ -51,7 +51,7 @@ jobs:
 
             - name: Create NuGet package
               run: |
-                ./build.sh
+                ./build.sh MklLinuxPack
 
 #    publish-release:
 #        name: Publish nuget package to NuGet
