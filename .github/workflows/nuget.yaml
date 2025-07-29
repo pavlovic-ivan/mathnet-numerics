@@ -18,7 +18,9 @@ jobs:
                 wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
                 echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
                 sudo apt-get update
-                sudo apt-get install intel-oneapi-mkl intel-oneapi-mkl-devel intel-oneapi-mkl-classic-32bit intel-oneapi-mkl-32bit
+                sudo apt-cache search intel-oneapi-mkl
+                sudo apt-get install intel-oneapi-mkl-2023.1.0 intel-oneapi-mkl-devel-2023.1.0
+
 
             - name: Install required packages
               run: sudo apt-get install -y g++ g++-multilib libc6-dev-i386
