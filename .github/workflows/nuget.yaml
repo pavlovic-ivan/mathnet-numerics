@@ -37,8 +37,8 @@ jobs:
             - name: Build NuGet package
               working-directory: src/NativeProviders/Linux
               run: |
-                  chmod +x mkl_build.sh
-                  ./mkl_build.sh
+                  chmod +x temp_mkl_build.sh
+                  ./temp_mkl_build.sh
 
             - name: Debug
               run: |
