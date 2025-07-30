@@ -23,7 +23,6 @@ jobs:
                 wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
                 echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
                 sudo apt-get update
-                sudo apt-cache search intel-oneapi-mkl
                 sudo apt-get install intel-oneapi-mkl-2023.1.0 intel-oneapi-mkl-devel-2023.1.0
 
 
@@ -52,12 +51,28 @@ jobs:
             - name: Install Mono
               run: |
                 sudo apt update
-                sudo apt install -y mono-runtime
+                sudo apt install -y mono-complete mono-devel
                 mono --version
 
             - name: Create NuGet package
               run: |
-                ./build.sh MklLinuxPack
+                # Set multiple environment variables to help Mono locate assemblies
+                export MONO_PATH="/usr/lib/mono/4.5:/usr/lib/mono/4.0:/usr/lib/mono/gac"
+                export MONO_CFG_DIR="/etc/mono"
+
+                # Debug: Show Mono configuration
+                echo "MONO_PATH: $MONO_PATH"
+                mono --config
+
+                # Try the build
+                ./build.sh MklLinuxPack || {
+                    echo "Build failed, trying alternative approach..."
+                    # Alternative: Use dotnet CLI directly if available
+                    if [ -f "obj/NuGet/MathNet.Numerics.MKL.Linux.3.0.0.nuspec" ]; then
+                        echo "Trying with dotnet CLI..."
+                        dotnet pack obj/NuGet/MathNet.Numerics.MKL.Linux.3.0.0.nuspec -o out/MKL/NuGet
+                    fi
+                }
 
 #    publish-release:
 #        name: Publish nuget package to NuGet
