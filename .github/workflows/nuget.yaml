@@ -62,7 +62,6 @@ jobs:
 
                 # Debug: Show Mono configuration
                 echo "MONO_PATH: $MONO_PATH"
-                mono --config
 
                 # Try the build
                 ./build.sh MklLinuxPack || {
